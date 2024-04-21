@@ -27,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${marcellus.variable} ${urbanist.variable}`}>
+        <Header />
         {children}
       </body>
     </html>
