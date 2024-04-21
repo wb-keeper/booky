@@ -5,9 +5,22 @@ import Image from "next/image";
 import { FaStar, FaStarHalf } from "react-icons/fa";
 import { intersection } from "ts-interface-checker";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {useEffect, useState} from "react";
 
 const RoomList = ({ rooms }: { rooms: any }) => {
+    const [roomType, setRoomType] = useState('all')
+    const [filteredRooms, setFilteredRooms] = useState([])
+
+    useEffect(() => {
+
+        const filtered = rooms.data?.filter((room: any) => {
+            return roomType === 'all' ? rooms : roomType === room.attributes.type
+        })
+        setFilteredRooms(filtered)
+    }, [roomType])
+
   return (
+
     <section className="py-16 min-h-[90vh]">
       <div className="flex flex-col items-center">
         <div className="relative w-[82px] h-[20px]">
@@ -25,23 +38,23 @@ const RoomList = ({ rooms }: { rooms: any }) => {
         className="w-[240px] lg:w-[540px] h-[200px] lg:h-auto mb-8 mx-auto"
       >
         <TabsList className="w-full h-full lg:h-[46px] flex flex-col lg:flex-row">
-          <TabsTrigger className="w-full h-full" value="all">
+          <TabsTrigger className="w-full h-full" value="all" onClick={() => setRoomType('all')}>
             All
           </TabsTrigger>
-          <TabsTrigger className="w-full h-full" value="single">
+          <TabsTrigger className="w-full h-full" value="single" onClick={() => setRoomType('single')}>
             Single
           </TabsTrigger>
-          <TabsTrigger className="w-full h-full" value="double">
+          <TabsTrigger className="w-full h-full" value="double" onClick={() => setRoomType('double')}>
             Double
           </TabsTrigger>
-          <TabsTrigger className="w-full h-full" value="extended">
+          <TabsTrigger className="w-full h-full" value="extended" onClick={() => setRoomType('extended')}>
             Extended
           </TabsTrigger>
         </TabsList>
       </Tabs>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {rooms.data.map((room: any) => {
-          console.log(room);
+        {filteredRooms.map((room: any) => {
+
           const imgUrl = `http://127.0.0.1:1337${room.attributes.image.data?.attributes.url}`;
           return (
             <div key={room.id}>
