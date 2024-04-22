@@ -8,6 +8,7 @@ import {
   RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Button } from "@/components/ui/button";
+import Dropdown from "@/components/Dropdown";
 
 const socials = [
   { icon: <FaYoutube />, href: "#" },
@@ -19,7 +20,9 @@ const socials = [
 const Header = async () => {
   const { isAuthenticated, getUser } = getKindeServerSession();
   const isUserAuthenticated = await isAuthenticated();
-  console.log(isUserAuthenticated);
+
+  const user = await getUser();
+
   return (
     <header className="py-6 shadow-md">
       <div className="container mx-auto">
@@ -45,7 +48,7 @@ const Header = async () => {
           <div>
             <div>
               {isUserAuthenticated ? (
-                <div>dropdown</div>
+                <Dropdown user={user}></Dropdown>
               ) : (
                 <div className="flex gap-2">
                   <LoginLink>
