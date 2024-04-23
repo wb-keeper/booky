@@ -45,14 +45,14 @@ const Header = async () => {
               ))}
             </div>
           </div>
-          <div>
-            <div>
+          <div className="flex items-center justify-center gap-8 xl:w-max">
+            <div className="flex items-center gap-2 xl:order-2">
               {isUserAuthenticated ? (
                 <Dropdown user={user}></Dropdown>
               ) : (
                 <div className="flex gap-2">
                   <LoginLink>
-                    <Button>Sign in</Button>
+                    <Button variant="primary">Sign in</Button>
                   </LoginLink>
                   <RegisterLink>
                     <Button>Register</Button>
@@ -60,6 +60,7 @@ const Header = async () => {
                 </div>
               )}
             </div>
+            <div>mobile nav</div>
           </div>
         </div>
       </div>

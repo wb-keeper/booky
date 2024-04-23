@@ -17,7 +17,7 @@ const Dropdown = ({ user }: { user: any }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div>
+        <div className="flex items-center gap-2 cursor-pointer">
           <Avatar>
             <AvatarImage src={user.picture} />
             <AvatarFallback className="bg-accent text-white">{`${user.given_name[0]} `}</AvatarFallback>
