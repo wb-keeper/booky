@@ -9,6 +9,7 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Button } from "@/components/ui/button";
 import Dropdown from "@/components/Dropdown";
+import MobileNav from "@/components/MobileNav";
 
 const socials = [
   { icon: <FaYoutube />, href: "#" },
@@ -60,7 +61,10 @@ const Header = async () => {
                 </div>
               )}
             </div>
-            <div>mobile nav</div>
+            <div className="xl:hidden">
+              <MobileNav />
+            </div>
+            <div className="hidden xl:flex">desktop nav</div>
           </div>
         </div>
       </div>
