@@ -18,13 +18,13 @@ const MobileNav = () => {
         <FaBars />
       </SheetTrigger>
       <SheetContent side="left" className="flex justify-center items-center">
-        <nav>
+        <nav className="flex flex-col gap-8 text-center">
           {links.map((link, index) => {
             return (
               <Link
                 href={link.path}
                 key={index}
-                className="text-2xl font-primary hover:text-accent-hover transition-all
+                className="text-2xl font-primary text-primary hover:text-accent-hover transition-all
                 "
               >
                 {link.name}

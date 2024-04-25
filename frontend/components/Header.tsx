@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Dropdown from "@/components/Dropdown";
 import MobileNav from "@/components/MobileNav";
+import Nav from "@/components/Nav";
 
 const socials = [
   { icon: <FaYoutube />, href: "#" },
@@ -64,7 +65,9 @@ const Header = async () => {
             <div className="xl:hidden">
               <MobileNav />
             </div>
-            <div className="hidden xl:flex">desktop nav</div>
+            <div className="hidden xl:flex">
+              <Nav />
+            </div>
           </div>
         </div>
       </div>
