@@ -12,6 +12,11 @@ const getRoomData = async ({ params }: { params: any }) => {
   );
   return await res.json();
 };
+
+function Reservation() {
+  return null;
+}
+
 const RoomDetails = async ({ params }: { params: any }) => {
   const room = await getRoomData({ params });
   const imgURL = `http://127.0.0.1:1337${room.data.attributes.image.data.attributes.url}`;
@@ -50,8 +55,8 @@ const RoomDetails = async ({ params }: { params: any }) => {
               <p>{room.data.attributes.description}</p>
             </div>
           </div>
-          <div className="w-full lg:max-w-[360px] h-max bg-green-300">
-            reservation
+          <div className="w-full lg:max-w-[360px] h-max">
+            <Reservation />
           </div>
         </div>
       </div>

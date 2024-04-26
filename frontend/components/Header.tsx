@@ -66,7 +66,7 @@ const Header = async () => {
               <MobileNav />
             </div>
             <div className="hidden xl:flex">
-              <Nav />
+              <Nav isUserAuthenticated={isUserAuthenticated} />
             </div>
           </div>
         </div>
