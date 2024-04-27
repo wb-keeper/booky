@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { TbArrowsMaximize, TbUsers } from "react-icons/tb";
+import Reservation from "@/components/Reservation";
 
 const getRoomData = async ({ params }: { params: any }) => {
   const res = await fetch(
@@ -13,12 +14,19 @@ const getRoomData = async ({ params }: { params: any }) => {
   return await res.json();
 };
 
-function Reservation() {
-  return null;
-}
+const getReservationData = async () => {
+  const res = await fetch(`http://127.0.0.1:1337/api/reservations?populate=*`, {
+    next: {
+      revalidate: 0,
+    },
+  });
+  return await res.json();
+};
 
 const RoomDetails = async ({ params }: { params: any }) => {
   const room = await getRoomData({ params });
+  const reservations = await getReservationData();
+  console.log(reservations);
   const imgURL = `http://127.0.0.1:1337${room.data.attributes.image.data.attributes.url}`;
   return (
     <section className="min-h-[80vh]">
@@ -56,7 +64,7 @@ const RoomDetails = async ({ params }: { params: any }) => {
             </div>
           </div>
           <div className="w-full lg:max-w-[360px] h-max">
-            <Reservation />
+            <Reservation reservations={reservations} />
           </div>
         </div>
       </div>
