@@ -9,7 +9,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/server";
+import AlertMessage from "@/components/AlertMessage";
 const Reservation = ({
   reservations,
   room,
@@ -23,6 +25,19 @@ const Reservation = ({
 }) => {
   const [checkInDate, setCheckInDate] = useState<Date>();
   const [checkOutDate, setCheckOutDate] = useState<Date>();
+  const [alertMessage, setAlertMessage] = useState<{
+    message: string;
+    type: "error" | "success" | null;
+  } | null>();
+  useEffect(() => {});
+  const saveReservation = () => {
+    if (!checkInDate || !checkOutDate) {
+      setAlertMessage({
+        message: "Please select dates",
+        type: "error",
+      });
+    }
+  };
   return (
     <div>
       <div className="bg-tertiary h-[320px] mb-4">
@@ -87,8 +102,22 @@ const Reservation = ({
               />
             </PopoverContent>
           </Popover>
+          {isUserAuthenticated ? (
+            <Button
+              className="w-full"
+              size="md"
+              onClick={() => saveReservation()}
+            >
+              Book now
+            </Button>
+          ) : (
+            <Button className="w-full" size="md">
+              Book now
+            </Button>
+          )}
         </div>
       </div>
+      {alertMessage && <AlertMessage />}
     </div>
   );
 };
