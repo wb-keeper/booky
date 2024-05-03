@@ -12,6 +12,22 @@ import {
 import { useEffect, useState } from "react";
 import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/server";
 import AlertMessage from "@/components/AlertMessage";
+
+const postData = async (url: string, data: object) => {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+  try {
+    const res = await fetch(url, options);
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
 const Reservation = ({
   reservations,
   room,
@@ -29,11 +45,25 @@ const Reservation = ({
     message: string;
     type: "error" | "success" | null;
   } | null>();
-  useEffect(() => {});
+  const formatDateForStrapi = (date: Date) => {
+    return format(date, "yyyy-MM-dd");
+  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAlertMessage(null);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [alertMessage]);
   const saveReservation = () => {
     if (!checkInDate || !checkOutDate) {
       setAlertMessage({
         message: "Please select dates",
+        type: "error",
+      });
+    }
+    if (checkInDate?.getTime() === checkOutDate?.getTime()) {
+      return setAlertMessage({
+        message: "Check-in and and Check-out cannot be the same",
         type: "error",
       });
     }
@@ -117,7 +147,9 @@ const Reservation = ({
           )}
         </div>
       </div>
-      {alertMessage && <AlertMessage />}
+      {alertMessage && (
+        <AlertMessage message={alertMessage.message} type={alertMessage.type} />
+      )}
     </div>
   );
 };
