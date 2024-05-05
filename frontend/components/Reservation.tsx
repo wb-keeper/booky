@@ -67,6 +67,16 @@ const Reservation = ({
         type: "error",
       });
     }
+    const data = {
+      data: {
+        firstname: "Alex",
+        lastname: "Green",
+        email: "alexgreen@gmail.com",
+        checkIn: checkInDate ? formatDateForStrapi(checkInDate) : null,
+        checkOut: checkOutDate ? formatDateForStrapi(checkOutDate) : null,
+        room: room.data.id,
+      },
+    };
   };
   return (
     <div>
