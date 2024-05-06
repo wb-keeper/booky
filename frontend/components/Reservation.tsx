@@ -69,14 +69,15 @@ const Reservation = ({
     }
     const data = {
       data: {
-        firstname: "Alex",
-        lastname: "Green",
-        email: "alexgreen@gmail.com",
+        firstname: userData.family_name,
+        lastname: userData.given_name,
+        email: userData.email,
         checkIn: checkInDate ? formatDateForStrapi(checkInDate) : null,
         checkOut: checkOutDate ? formatDateForStrapi(checkOutDate) : null,
         room: room.data.id,
       },
     };
+    postData(`http://127.0.0.1:1337/api/reservations/`, data);
   };
   return (
     <div>
