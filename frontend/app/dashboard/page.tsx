@@ -1,4 +1,6 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { format } from "date-fns";
+import CancelReservation from "@/components/CancelReservation";
 
 const getUserReservations = async (userEmail: any) => {
   const res = await fetch(
@@ -26,7 +28,37 @@ const Dashboard = async () => {
             </div>
           ) : (
             userReservations.data.map((reservation: any) => {
-              return <div>res</div>;
+              return (
+                <div key={reservation.id} className="bg-tertiary py-8 px-12">
+                  <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                    <h3 className="text-2xl font-medium w-[200px] text-center lg:text-left">
+                      {reservation.attributes.room.data.attributes.title}
+                    </h3>
+                    <div
+                      className="flex flex-col lg:flex-row
+                     gap-2 lg:w-[380px]"
+                    >
+                      <div className="flex items-center gap-1 flex-1">
+                        <span className="text-accent font-bold uppercase tracking-[2px]">
+                          from:
+                        </span>
+                        <span className="text-secondary font-semibold">
+                          {format(reservation.attributes.checkIn, "PPPP")}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 flex-1">
+                        <span className="text-accent font-bold uppercase tracking-[2px]">
+                          to:
+                        </span>
+                        <span className="text-secondary font-semibold">
+                          {format(reservation.attributes.checkOut, "PPPP")}
+                        </span>
+                      </div>
+                    </div>
+                    <CancelReservation reservation={reservation} />
+                  </div>
+                </div>
+              );
             })
           )}
         </div>
