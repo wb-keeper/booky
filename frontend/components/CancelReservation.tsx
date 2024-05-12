@@ -11,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const deleteData = async (url: string) => {
   const options = {
@@ -28,8 +29,10 @@ const deleteData = async (url: string) => {
   }
 };
 const CancelReservation = ({ reservation }: { reservation: any }) => {
+  const router = useRouter();
   const cancelReservation = (id: number) => {
-    console.log(id);
+    deleteData(`http://127.0.0.1:1337/api/reservations/${id}`);
+    router.refresh();
   };
   return (
     <AlertDialog>

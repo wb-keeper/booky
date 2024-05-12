@@ -1,6 +1,8 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { format } from "date-fns";
 import CancelReservation from "@/components/CancelReservation";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const getUserReservations = async (userEmail: any) => {
   const res = await fetch(
@@ -21,10 +23,15 @@ const Dashboard = async () => {
     <section className="min-h-[80vh]">
       <div className="container mx-auto py-8 h-full">
         <h3 className="h3 font-bold mb-12 border-b">My bookings</h3>
-        <div>
+        <div className="flex flex-col gap-8 h-full">
           {userReservations.data.length < 1 ? (
-            <div>
-              <p>You don't have any reservations</p>
+            <div className="flex flex-col items-center justify-center h-[50vh]">
+              <p className="text-xl text-center text-secondary/70 mb-4">
+                You don't have any reservations
+              </p>
+              <Link href="/">
+                <Button size="md">Go to homepage</Button>
+              </Link>
             </div>
           ) : (
             userReservations.data.map((reservation: any) => {
