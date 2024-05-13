@@ -1,12 +1,12 @@
 import Rooms from "@/components/Rooms";
-
+import Hero from "@/components/Hero";
 
 const Home = () => {
   return (
-   <main>
-     <Rooms />
-   </main>
-
+    <main>
+      <Hero />
+      <Rooms />
+    </main>
   );
-}
-export default Home
+};
+export default Home;
